@@ -1,7 +1,11 @@
 name: ZAP DAST Scan
 
 on:
-  workflow_dispatch:  # Esto permite ejecutarlo manualmente desde GitHub UI
+  push:
+    branches:
+      - main
+  pull_request:
+    types: [opened, synchronize, reopened]
 
 jobs:
   zap_scan:
