@@ -1,0 +1,32 @@
+name: ZAP DAST Scan
+
+on:
+  workflow_dispatch:  # Esto permite ejecutarlo manualmente desde GitHub UI
+
+jobs:
+  zap_scan:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repo (opcional)
+        uses: actions/checkout@v3
+
+      - name: Start your app
+        run: |
+          # Asegúrate de que tu app se pueda levantar así
+          npm install
+          npm run build || true
+          npm start &
+          sleep 10  # Espera a que tu app esté corriendo
+
+      - name: Run ZAP Baseline Scan
+        run: |
+          docker run --rm -t owasp/zap2docker-stable zap-baseline.py \
+            -t http://localhost:3000 \
+            -r zap_report.html
+
+      - name: Upload ZAP report
+        uses: actions/upload-artifact@v3
+        with:
+          name: zap-report
+          path: zap_report.html
