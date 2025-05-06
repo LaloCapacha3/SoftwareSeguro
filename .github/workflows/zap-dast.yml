@@ -34,8 +34,9 @@ jobs:
           target: 'http://localhost:3000'  # Tu app corriendo localmente
           cmd_options: '-a'                # Escaneo activo (puede tardar más)
 
-      # - name: Upload ZAP report
-      #   uses: actions/upload-artifact@v3
-      #   with:
-      #     name: zap-dast-report
-      #     path: report_html.html
+      - name: Upload ZAP report
+        uses: actions/upload-artifact@v2
+        with:
+          name: zap-dast-report
+          path: report_html.html
+
