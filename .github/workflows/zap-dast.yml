@@ -1,37 +1,41 @@
 name: ZAP DAST Scan
 
 on:
-  push:
-    branches:
-      - main
-  pull_request:
-    types: [opened, synchronize, reopened]
+  workflow_dispatch:  # Se ejecuta manualmente desde GitHub UI
 
 jobs:
-
   zap_scan:
     runs-on: ubuntu-latest
-    needs: security
-    name: Run DAST scan on the web applications
+    name: Run ZAP DAST scan
+
     steps:
-      - name: Checkout repo (opcional)
+      - name: Checkout repository
         uses: actions/checkout@v3
 
-      - name: Start your app
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18'
+
+      - name: Install dependencies and build app
         run: |
-          # Asegúrate de que tu app se pueda levantar así
           npm install
           npm run build || true
+
+      - name: Start the application
+        run: |
           npm start &
-          sleep 10  # Espera a que tu app esté corriendo
-      - name: Checkout
-        uses: actions/checkout@v2
-        with:
-          ref: master
-      - name: ZAP Scan
+          sleep 15  # Esperar a que la app esté completamente arriba
+
+      - name: Run ZAP Baseline Scan
         uses: zaproxy/action-baseline@v0.6.1
         with:
           docker_name: 'owasp/zap2docker-stable'
-          target: 'http://testphp.vulnweb.com/'
-          rules_file_name: '.zap/rules.tsv'
-          cmd_options: '-a'
+          target: 'http://localhost:3000'  # Tu app corriendo localmente
+          cmd_options: '-a'                # Escaneo activo (puede tardar más)
+
+      - name: Upload ZAP report
+        uses: actions/upload-artifact@v3
+        with:
+          name: zap-dast-report
+          path: report_html.html
