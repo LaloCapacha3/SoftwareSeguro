@@ -1,0 +1,30 @@
+<div class="container">
+        <h1>Editar Evento</h1>
+        <form action="/eventos/{{event._id}}?_method=PUT" method="POST">
+            <div class="form-group">
+                <label for="titulo">Título:</label>
+                <input type="text" id="titulo" name="titulo" value="{{event.titulo}}" required placeholder="Ingresa un título">
+            </div>
+            <div class="form-group">
+                <label for="descripcion">Descripción:</label><br>
+                <textarea id="descripcion" name="descripcion" rows="4" required>{{event.descripcion}}</textarea>
+            </div>
+            <div class="form-group">
+                <label for="fechaInicio">Fecha de inicio:</label><br>
+                <input type="date" id="fechaInicio" name="fechaInicio" value="{{event.fechaInicio}}" required>
+            </div>
+            <div class="form-group">
+                <label for="fechaFin">Fecha de fin:</label><br>
+                <input type="date" id="fechaFin" name="fechaFin" value="{{event.fechaFin}}" required>
+            </div>
+           <div class="form-group">
+                <label for="organizador">Organizador:</label>
+                <select id="organizador" name="organizador" required>
+                    {{#each users}}
+                    <option value="{{_id}}" {{eq _id ../event.organizador._id}}>{{fullname}}</option>
+                    {{/each}}
+                </select>
+            </div>
+            <button type="submit">Guardar Cambios</button>
+        </form>
+    </div>

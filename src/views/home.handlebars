@@ -1,0 +1,98 @@
+<div id="background-image-container">
+    <img src="https://img.freepik.com/vector-gratis/efecto-luminoso-estadio-luminoso_23-2148366134.jpg" alt="Background" />
+</div>
+<div class="container">
+    <h1>Bienvenido a la EventHorizon</h1>
+    {{#if userLoggedIn}}
+    <button class="new-event-button" onclick="toggleModal(true)">+ Evento</button>
+    <h2>Tus Eventos</h2><br>
+    <div class="event-list">
+        {{#each events}}
+        <div class="eh-parent">
+            <div class="eh-card">
+                <div class="eh-content-box">
+                    <span class="eh-card-title">{{titulo}}</span>
+                    <p class="eh-card-content">
+                        <strong>Descripción:</strong> {{descripcion}}<br>
+                    </p>
+                    <h4 class="organizador">Organizador:</h4>
+                    <span class="organizador-name">Tu wey quien mas .|.</span> <br>
+                    {{#if colaboradores.length}}
+                    <h4>Colaboradores:</h4>
+                    <ul>
+                        {{#each colaboradores}}
+                        <li class="colaborador-name">{{this}}</li>
+                        {{/each}}
+                    </ul>
+                    {{/if}}
+                    <button class="eh-see-more" onclick="window.location.href='/edit/{{_id}}'">Editar</button>
+                    <button class="eh-see-more" onclick="deleteEvent('{{_id}}')">Eliminar</button>
+                </div>
+                <div class="eh-date-box">
+                    <span class="eh-month">{{month fechaInicio}}</span>
+                    <span class="eh-date">{{day fechaInicio}}</span> 
+                </div>
+            </div>
+        </div>
+        {{/each}}
+    </div>
+    {{/if}}
+</div>
+
+<!-- Modal -->
+<div class="eh-modal-container" id="createProjectModal" style="display:none;">
+  <div class="eh-modal">
+    <div class="eh-modal__header">
+      <span class="eh-modal__title">Nuevo Proyecto</span>
+      <button class="eh-modal__close-btn" onclick="toggleModal(false)">
+        <svg width="24" viewBox="0 0 24 24" height="24" xmlns="http://www.w3.org/2000/svg">
+          <path fill="none" d="M0 0h24v24H0V0z"></path>
+          <path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41z"></path>
+        </svg>
+      </button>
+    </div>
+    <!-- Inicio del formulario -->
+    <form action="/evento" method="post">
+      <div class="eh-modal__body">
+        <div class="eh-input">
+          <label class="eh-input__label">Título del Proyecto</label>
+          <input class="eh-input__field form-control" type="text" name="titulo" maxlength="32" required>
+          <p class="eh-input__description">El título debe contener un máximo de 32 caracteres</p>
+        </div>
+        <input type="hidden" name="organizador" value="{{userId}}">
+        <div class="eh-input">
+          <label class="eh-input__label">Descripción</label>
+          <textarea class="eh-input__field eh-input__field--textarea form-control" name="descripcion" required></textarea>
+          <p class="eh-input__description">Da una buena descripción a tu proyecto para que todos sepan para qué es</p>
+        </div>
+        <div class="eh-input">
+          <label class="eh-input__label">Fecha de Inicio</label>
+          <input class="eh-input__field form-control" type="date" name="fechaInicio" required>
+        </div>
+        <div class="eh-input">
+          <label class="eh-input__label">Fecha de Fin</label>
+          <input class="eh-input__field form-control" type="date" name="fechaFin" required>
+        </div>
+        <div class="eh-input">
+          <label class="eh-input__label">Colaboradores</label>
+          <select class="eh-input__field form-control" name="colaboradores" multiple>
+              {{#each users}}
+              <option value="{{this._id}}">{{this.fullname}}</option>
+              {{/each}}
+          </select>
+          <p class="eh-input__description">Selecciona los colaboradores para este proyecto</p>
+        </div>
+        <div class="text-right mt-3">
+          <button type="submit" class="btn btn-primary">Crear Proyecto</button>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
+
+
+
+
+
+
+
