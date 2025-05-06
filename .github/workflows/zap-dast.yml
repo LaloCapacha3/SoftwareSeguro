@@ -8,8 +8,12 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout repo (opcional)
-        uses: actions/checkout@v3
+      - name: Upload ZAP report
+        uses: actions/upload-artifact@v3
+        with:
+          name: zap-report
+          path: zap_report.html
+
 
       - name: Start your app
         run: |
