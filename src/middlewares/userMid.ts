@@ -7,23 +7,23 @@ dotenv.config();
 
 
 const s3 = new S3Client({
-    region: process.env.AWS_REGION,
+    region: process.env.AWS_REGION || '3000',
     credentials: {
-        accessKeyId: process.env.AWS_ACCESS_KEY_ID,
-        secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY
+        accessKeyId: process.env.AWS_ACCESS_KEY_ID || '3000',
+        secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY || '3000'
     }
 });
 
-const uploadS3 = multer({
-    storage: multerS3({
-        s3: s3,
-        bucket: process.env.AWS_BUCKET_NAME,
-        key: (req, file, cb) => {
-            const extension = file.originalname.split('.').pop();
-            const filename = `${uuidv4()}.${extension}`;
-            cb(null, filename);
-        }
-    })
-});
+// const uploadS3 = multer({
+//     storage: multerS3({
+//         s3: s3,
+//         bucket: process.env.AWS_BUCKET_NAME,
+//         key: (req, file, cb) => {
+//             const extension = file.originalname.split('.').pop();
+//             const filename = `${uuidv4()}.${extension}`;
+//             cb(null, filename);
+//         }
+//     })
+// });
 
-export const uploadS3Middleware = uploadS3.single('file');
+//export const uploadS3Middleware = uploadS3.single('file');

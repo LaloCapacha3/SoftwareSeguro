@@ -54,10 +54,10 @@ app.use(methodOverride('_method'));
 
 
 // Conexión a MongoDB
-mongoose
-  .connect(process.env.DB_URL!)
-  .then(() => console.log('Conexión a MongoDB exitosa'))
-  .catch((err) => console.error('Error conectando a MongoDB', err));
+// mongoose
+//   .connect(process.env.DB_URL!)
+//   .then(() => console.log('Conexión a MongoDB exitosa'))
+//   .catch((err) => console.error('Error conectando a MongoDB', err));
 
 // Configuración de Handlebars
 app.engine('handlebars', engine({

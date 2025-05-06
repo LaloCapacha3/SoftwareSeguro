@@ -19,36 +19,36 @@ passport.deserializeUser(async (id, done) => {
   }
 });
 
-passport.use(new GoogleStrategy({
-  clientID: process.env.GOOGLE_ID,
-  clientSecret: process.env.GOOGLE_SECRET,
-  callbackURL: process.env.GOOGLE_CALLBACK,
-  scope: ['profile', 'email']
-}, async (accessToken, refreshToken, profile, done) => {
-  try {
-    const email = profile.emails && profile.emails.length > 0 ? profile.emails[0].value : null;
-    if (!email) {
-      return done(new Error('Sin email de Google'), null);
-    }
+// passport.use(new GoogleStrategy({
+//   clientID: process.env.GOOGLE_ID,
+//   clientSecret: process.env.GOOGLE_SECRET,
+//   callbackURL: process.env.GOOGLE_CALLBACK,
+//   scope: ['profile', 'email']
+// }, async (accessToken, refreshToken, profile, done) => {
+//   try {
+//     const email = profile.emails && profile.emails.length > 0 ? profile.emails[0].value : null;
+//     if (!email) {
+//       return done(new Error('Sin email de Google'), null);
+//     }
 
-    let user = await User.findOne({ googleId: profile.id }) || await User.findOne({ email: email });
+//     let user = await User.findOne({ googleId: profile.id }) || await User.findOne({ email: email });
 
-    if (!user) {
-      user = new User({
-        fullname: profile.displayName,
-        username: email.split('@')[0],
-        email: email,
-        profilePicture: profile.photos && profile.photos.length > 0 ? profile.photos[0].value : undefined,
-        googleId: profile.id,
-      });
-      await user.save();
-    }
+//     if (!user) {
+//       user = new User({
+//         fullname: profile.displayName,
+//         username: email.split('@')[0],
+//         email: email,
+//         profilePicture: profile.photos && profile.photos.length > 0 ? profile.photos[0].value : undefined,
+//         googleId: profile.id,
+//       });
+//       await user.save();
+//     }
 
-    done(null, user); 
-  } catch (err) {
-    console.error('Error en la estrategia de Google:', err);
-    done(err, null);
-  }
-}));
+//     done(null, user); 
+//   } catch (err) {
+//     console.error('Error en la estrategia de Google:', err);
+//     done(err, null);
+//   }
+// }));
 
-export default passport;
+// export default passport;

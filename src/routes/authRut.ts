@@ -1,11 +1,11 @@
 import express from 'express';
 import { loginUser, registerUser, logoutUser, editarPerfil, eliminarUsuario, verPerfil, actualizarPP,getUserId} from '../controllers/authCont'; 
 import { verificarToken, esAdmin } from '../middlewares/authMid'; 
-import { uploadS3Middleware } from '../middlewares/userMid';
+//import { uploadS3Middleware } from '../middlewares/userMid';
 import swaggerJsDoc from 'swagger-jsdoc';
 import swaggerUI from 'swagger-ui-express';
 import swaggerConfig from './../../swagger.config.json';
-import passport from '../middlewares/passport-config';
+//import passport from '../middlewares/passport-config';
 import jwt from 'jsonwebtoken'; 
 const router = express.Router();
 const swaggerDocs = swaggerJsDoc(swaggerConfig);
@@ -216,7 +216,7 @@ router.delete('/delete', verificarToken, eliminarUsuario);
  *       403:
  *         description: No autorizado. El usuario no tiene permisos para realizar esta acción.
  */
-router.post('/perfil/foto/:userId', verificarToken, uploadS3Middleware, actualizarPP);
+//router.post('/perfil/foto/:userId', verificarToken, uploadS3Middleware, actualizarPP);
 
 /**
  * @swagger
@@ -231,7 +231,7 @@ router.post('/perfil/foto/:userId', verificarToken, uploadS3Middleware, actualiz
  *       500:
  *         description: Error interno del servidor.
  */
-router.get('/auth/google', passport.authenticate('google', { scope: ['profile', 'email'] }));
+//router.get('/auth/google', passport.authenticate('google', { scope: ['profile', 'email'] }));
 
 /**
  * @swagger
@@ -273,27 +273,27 @@ router.get('/auth/google', passport.authenticate('google', { scope: ['profile', 
  *       500:
  *         description: Error interno del servidor.
  */
-router.get('/google/callback', passport.authenticate('google', { failureRedirect: '/login' }), async (req, res) => {
-  try {
-      if (req.user) {
-          const user = req.user;
-          const token = jwt.sign(
-              { userId: user._id, username: user.username }, 
-              process.env.JWT_SECRET,
-              { expiresIn: '1h' }
-          );
-          res.cookie('token', token, { httpOnly: true, secure: true });
-          res.locals.userLoggedIn = true;
-          res.locals.username = user.username;  
-          res.redirect('/');
-      } else {
-          res.redirect('/login');
-      }
-  } catch (error) {
-      console.error('Error durante la autenticación de Google:', error);
-      res.status(500).send('Error del servidor');
-  }
-});
+// router.get('/google/callback', passport.authenticate('google', { failureRedirect: '/login' }), async (req, res) => {
+//   try {
+//       if (req.user) {
+//           const user = req.user;
+//           const token = jwt.sign(
+//               { userId: user._id, username: user.username }, 
+//               process.env.JWT_SECRET,
+//               { expiresIn: '1h' }
+//           );
+//           res.cookie('token', token, { httpOnly: true, secure: true });
+//           res.locals.userLoggedIn = true;
+//           res.locals.username = user.username;  
+//           res.redirect('/');
+//       } else {
+//           res.redirect('/login');
+//       }
+//   } catch (error) {
+//       console.error('Error durante la autenticación de Google:', error);
+//       res.status(500).send('Error del servidor');
+//   }
+// });
 
 
 
