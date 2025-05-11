@@ -1,0 +1,40 @@
+<div class="container" id="user_container" data-username="{{username}}">
+    <h1>Listado de Eventos</h1><br>
+    <div class="coolinput">
+        <label for="inputField" class="text">Eventos:</label>
+        <input type="text" placeholder="Metele papi..." name="input" id="inputField" class="input">
+    </div>
+    <br><br>
+    <div class="event-list">
+        {{#each eventos}}
+        <div class="eh-parent">
+            <div class="eh-card">
+                <div class="eh-content-box">
+                    <span class="eh-card-title">{{titulo}}</span>
+                    <p class="eh-card-content">
+                        <strong>Descripción:</strong> {{descripcion}}<br>
+                <!--    <strong>Fecha de inicio:</strong> {{fechaInicio}}<br>
+                        <strong>Fecha de fin:</strong> {{fechaFin}}  -->
+                    </p>
+                    <h4 class="organizador">Organizador:</h4>
+                    <span class="organizador-name">{{organizador}}</span>
+                    {{#if colaboradores.length}}
+                    <h4>Colaboradores:</h4>
+                    <ul>
+                        {{#each colaboradores}}
+                        <li class="colaborador-name">{{this}}</li>
+                        {{/each}}
+                    </ul>
+                    {{/if}}
+                    <button class="eh-see-more" onclick="asistirEvento('{{_id}}')">Inscribirse</button>
+                </div>
+                <div class="eh-date-box">
+                    <span class="eh-month">{{month fechaInicio}}</span>
+                    <span class="eh-date">{{day fechaInicio}}</span> 
+                </div>
+            </div>
+        </div>
+        {{/each}}
+    </div>
+</div>
+

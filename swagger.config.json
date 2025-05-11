@@ -1,0 +1,32 @@
+{
+    "swaggerDefinition": {
+      "openapi": "3.1.0",
+      "info": {
+        "version": "1.2.1",
+        "title": "EventHorizon",
+        "description": "Plataforma para eventos y networking."
+      },
+      "servers": [
+        {
+          "url": "http://localhost:3000",
+          "description": "Development server"
+        }
+      ],
+      "components": {
+        "securitySchemes": {
+          "bearerAuth": {
+            "type": "http",
+            "scheme": "bearer",
+            "bearerFormat": "JWT"
+          }
+        }
+      },
+      "security": [
+        {
+          "bearerAuth": []
+        }
+      ]
+    },
+    "apis": ["src/**/*.ts"]
+  }
+  

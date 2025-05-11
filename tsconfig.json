@@ -1,0 +1,15 @@
+{
+    "compilerOptions": {
+      "target": "ES2016",
+      "outDir": "./dist",
+      "noImplicitAny": true,
+      "module": "NodeNext",
+      "esModuleInterop": true,
+      "baseUrl": "src",
+      "resolveJsonModule": true
+    },
+    "include": [
+      "./src/**/*.ts",
+      "types/**/*.d.ts"
+    ],
+  }

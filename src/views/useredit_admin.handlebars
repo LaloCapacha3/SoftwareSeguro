@@ -1,0 +1,17 @@
+<div class="user-card">
+    <p><strong>Nombre completo:</strong> <span id="fullname">{{user.fullname}}</span></p>
+    <input type="text" id="edit-fullname" value="{{user.fullname}}" style="display: none;">
+    <p><strong>Nombre:</strong> <span id="username">{{user.username}}</span></p>
+    <input type="text" id="edit-username" value="{{user.username}}" style="display: none;">
+    <p><strong>Email:</strong> <span id="email">{{user.email}}</span></p>
+    <input type="email" id="edit-email" value="{{user.email}}" style="display: none;">
+    <p><strong>Rol:</strong> <span id="role">{{user.role}}</span></p>
+    <input type="text" id="edit-role" value="{{user.role}}" style="display: none;">
+    <p><strong>Imagen de perfil:</strong></p>
+    <img id="profilePicture" src="{{user.profilePicture}}" alt="Imagen de perfil" style="max-width:200px; max-height:200px;">
+    <input type="file" id="edit-profilePicture" style="display: none;" onchange="previewImage(event)">
+        
+    <button class="btn-edit" onclick="toggleEditMode()">Editar</button>
+    <button class="btn-update" onclick="updateUser('{{user._id}}')" style="display: none;">Actualizar</button>
+    <button class="btn-delete" onclick="deleteUser('{{user._id}}')">Eliminar</button>
+</div>

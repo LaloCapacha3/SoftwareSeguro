@@ -1,0 +1,144 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Editar Perfil</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f7f7f7;
+        }
+        .container {
+            max-width: 600px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        .container h1 {
+            margin-bottom: 20px;
+        }
+
+        form{
+            margin: auto;
+        }
+        .form-group {
+            margin-bottom: 20px;
+        }
+        .form-group label {
+            display: block;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+        .form-group input {
+            width: 100%;
+            padding: 10px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+        }
+        .form-group button {
+            padding: 12px 24px;
+            border-radius: 4px;
+            transition: all 0.2s ease-in;
+            position: relative;
+            overflow: hidden;
+            font-size: 19px;
+            cursor: pointer;
+            z-index: 1;
+            background-color: #007bff;
+            color: #fff;
+        }
+
+        .form-group button:before {
+            content: "";
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%) scaleY(1) scaleX(1.25);
+            top: 100%;
+            width: 140%;
+            height: 180%;
+            background-color: rgba(0, 0, 0, 0.05);
+            border-radius: 50%;
+            display: block;
+            transition: all 0.5s 0.1s cubic-bezier(0.55, 0, 0.1, 1);
+            z-index: -1;
+        }
+
+        .form-group button:after {
+            content: "";
+            position: absolute;
+            left: 55%;
+            transform: translateX(-50%) scaleY(1) scaleX(1.45);
+            top: 180%;
+            width: 160%;
+            height: 190%;
+            background-color: #39bda7;
+            border-radius: 50%;
+            display: block;
+            transition: all 0.5s 0.1s cubic-bezier(0.55, 0, 0.1, 1);
+            z-index: -1;
+        }
+
+        .form-group button:hover {
+            color: #ffffff;
+            border: 1px solid #39bda7;
+        }
+
+        .form-group button:hover:before {
+            top: -35%;
+            background-color: #39bda7;
+            transform: translateX(-50%) scaleY(1.3) scaleX(0.8);
+        }
+
+        .form-group button:hover:after {
+            top: -45%;
+            background-color: #39bda7;
+            transform: translateX(-50%) scaleY(1.3) scaleX(0.8);
+        }    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Editar Perfil</h1>
+        <form action="/users/{{user._id}}" method="POST">
+            <div class="form-group">
+                <label for="fullname">Nombre completo:</label>
+                <input type="text" id="fullname" name="fullname" value="{{user.fullname}}" required>
+            </div>
+            <div class="form-group">
+                <label for="username">Usuario:</label>
+                <input type="text" id="username" name="username" value="{{user.username}}" required>
+            </div>
+            <div class="form-group">
+                <label for="email">Correo electrónico:</label>
+                <input type="email" id="email" name="email" value="{{user.email}}" required>
+            </div>
+            <div class="form-group">
+                <label for="password">Contraseña:</label>
+                <input type="password" id="password" name="password" value="{{user.password}}" required>
+            </div>
+            <div class="form-group">
+                <label for="description">Descripción:</label>
+                <input type="text" id="description" name="description" value="{{user.description}}">
+            </div>
+            <div class="form-group">
+                <label for="profilePicture">Imagen de Perfil:</label>
+                <img src="{{user.profilePicture}}" alt="Imagen de Perfil" style="max-width: 200px; max-height: 200px;">
+                <input type="file" id="profilePicture" name="profilePicture" accept="image/*">
+                <small>Seleccione una nueva imagen si desea cambiarla.</small>
+            </div>
+            <div class="form-group">
+                <label for="cvLink">Enlace al CV:</label>
+                <input type="text" id="cvLink" name="cvLink" value="{{user.cvLink}}">
+            </div>
+            <div class="form-group">
+                <button type="submit" class="button">Guardar Cambios</button>
+            </div>
+        </form>
+    </div>
+</body>
+</html>
